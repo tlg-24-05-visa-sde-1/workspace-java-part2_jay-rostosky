@@ -2,7 +2,11 @@ package com.entertainment;
 
 import java.util.Objects;
 
-public class Television {
+/*
+ * Natural order is defined by brand (String).
+ * brand is our "sort key"
+ */
+public class Television implements Comparable<Television> {
     // fields or instance variables
     private String brand;
     private int volume;
@@ -48,25 +52,6 @@ public class Television {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || this.getClass() != obj.getClass()) {
-            return false;
-        }
-        Television other = (Television) obj;
-        return this.getVolume() == other.getVolume() &&
-               Objects.equals(this.getBrand(), other.getBrand());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getBrand(), getVolume());
-    }
-
-
-    /*    @Override
     public int hashCode() {
         // this is a poor hash function, because it easily yields "hash collisions"
         // a "hash collision" is when "different" objects have the same hashcode (just dumb luck)
@@ -75,24 +60,30 @@ public class Television {
         // this is a "scientifically correct" hash function, i.e.,
         // it minimizes the probability of hash collisions
         return Objects.hash(getBrand(), getVolume());
-    }*/
+    }
 
-/*    @Override
+    @Override
     public boolean equals(Object obj) {
         boolean result = false;
 
-        // check that 'obj' is really referring to a Television object, then we proceed
-        // if (obj instanceof Television) {  // IS-A check
-        if (this.getClass() == obj.getClass()) {  // are we the EXACT SAME TYPE?
-            // downcast 'obj' to more specific reference type Television, for getName(), getAge()
+        // 'this' (me) and 'obj' refer to the same physical object in memory!
+        if (this == obj) {
+            result = true;  // and we're done, return result (true)
+        }
+        // 'obj' is not-null and my Class object is the same as its Class object, proceed
+        // otherwise, skip this whole thing and return result (false)
+        else if (obj != null && (this.getClass() == obj.getClass())) {
             Television other = (Television) obj;
-
-            // do the checks: business equality is defined as brand, volume
-            result = Objects.equals(this.getBrand(), other.getBrand())  &&  // null-safe check
-                     this.getVolume() == other.getVolume();                 // primitives can't be null
+            result = Objects.equals(this.getBrand(), other.getBrand()) &&        // null-safe
+                    this.getVolume() == other.getVolume();       // primitives can't be null
         }
         return result;
-    }*/
+    }
+
+    @Override
+    public int compareTo(Television other) {
+        return this.getBrand().compareTo(other.getBrand());
+    }
 
     @Override
     public String toString() {
