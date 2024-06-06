@@ -108,8 +108,8 @@ public class Television implements Comparable<Television> {
         boolean result = false;
         if (obj instanceof Television) {
             Television other = (Television) obj;
-            result = Objects.equals(this.getBrand(), other.getBrand()) &&
-                     Objects.equals(this.getVolume(), other.getVolume()) &&
+            result = Objects.equals(this.getBrand(),   other.getBrand())  &&
+                     Objects.equals(this.getVolume(),  other.getVolume()) &&
                      Objects.equals(this.getDisplay(), other.getDisplay());
         }
         return result;
