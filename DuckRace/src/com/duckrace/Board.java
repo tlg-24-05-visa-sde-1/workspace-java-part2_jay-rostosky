@@ -74,25 +74,35 @@ public class Board {
      */
     public void show() {
         if (racerMap.isEmpty()) {
-            System.out.println("There are currently no results to show");
+            System.out.println("There are currently no results to show\n");
         }
         else {
-            Collection<DuckRacer> racers = racerMap.values();
+            StringBuilder board = new StringBuilder("\n");
+            board.append("Duck Race Results\n");
+            board.append("=================\n");
+            board.append("\n");
+            board.append("id    name      wins    rewards\n");
+            board.append("--    ----      ----    -------\n");
 
-            System.out.println("id    name    wins     rewards");
-            System.out.println("--    ----    ----     -------");
+            for (DuckRacer racer : racerMap.values()) {
+                String rewardsString = racer.getRewards().toString();
+                String rewards = rewardsString.substring(1, rewardsString.length() - 1);
 
-            for (DuckRacer racer : racers) {
-                // System.out.println(racer);  // toString() called
-                System.out.printf("%s   %s    %s     %s\n",
-                        racer.getId(), racer.getName(), racer.getWins(), racer.getRewards());
+                String row = String.format("%2d    %-9s %4d    %s\n",
+                        racer.getId(), racer.getName(), racer.getWins(), rewards);
+                board.append(row);
             }
+            System.out.println(board);
         }
     }
 
     // TESTING PURPOSES ONLY
     void dumpStudentIdMap() {
         System.out.println(studentIdMap);
+    }
+
+    public int maxId() {
+        return studentIdMap.size();
     }
 
     /*

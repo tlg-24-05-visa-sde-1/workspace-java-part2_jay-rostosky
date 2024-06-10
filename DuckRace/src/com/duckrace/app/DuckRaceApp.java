@@ -54,11 +54,11 @@ public class DuckRaceApp {
 
         boolean validInput = false;
         while (!validInput) {
-            System.out.print("Please enter id of the winner [1-16]: ");  // don't hardcode the 16
+            System.out.printf("Please enter id of the winner [1-%s]: ", board.maxId());
             String input = scanner.nextLine().trim();  // BLOCKS for input, i.e., the Enter key
             if (input.matches("\\d{1,2}")) {    // any digit, one or two times
-                id = Integer.parseInt(input);   // this is safe to do at this point (no exception)
-                if (id >=1 && id <=16) {        // don't hardcode the 16
+                id = Integer.parseInt(input);   // safe to do at this point (no exception)
+                if (1 <= id && id <= board.maxId()) {
                     validInput = true;
                 }
             }
