@@ -3,18 +3,23 @@ package com.javatunes.billing;
 public class TaxCalculatorFactory {
 
     public static TaxCalculator getTaxCalculator(Location location) {
-        TaxCalculator calc = null;
 
+        /* early return version, because we "return early," no need for the breaks
         switch (location) {
             case ONLINE:
-                calc = new OnlineTax();
-                break;
+                return new OnlineTax();
             case USA:
-                calc = new USATax();
-                break;
+                return new USATax();
             case EUROPE:
-                calc = new EuropeTax();
+                return new EuropeTax();
         }
-        return calc;
+        return null;
+        */
+
+        return switch (location) {
+            case ONLINE -> new OnlineTax();
+            case USA -> new USATax();
+            case EUROPE -> new EuropeTax();
+        };
     }
 }
