@@ -10,7 +10,7 @@ import static com.duckrace.Reward.*;
  * and prompts user for inputs, then "passes" those inputs into the System.
  */
 public class DuckRaceApp {
-    private final Board board = new Board();
+    private final Board board = Board.getInstance();
     private final Scanner scanner = new Scanner(System.in);
 
     public void execute() {
@@ -33,7 +33,7 @@ public class DuckRaceApp {
         while (!validInput) {
             System.out.print("Please enter [D]ebit card or [P]rizes: ");
             String input = scanner.nextLine().trim().toUpperCase();
-            if (input.matches("D|P")) {  // Warning: don't say "D | P" for readability
+            if (input.matches("D|P")) {  // NOTE: don't say "D | P" for readability
                 validInput = true;
                 reward = (input.equals("D")) ? DEBIT_CARD : PRIZES;  // ternary
                 /*
